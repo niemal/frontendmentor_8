@@ -30,8 +30,8 @@ Users should be able to:
 
 ### Links
 
-- [Solution URL](https://niemal.github.io/frontendmentor_8/)
-- [Live Site URL](https://github.com/niemal/frontendmentor_8/)
+- [Solution URL](https://github.com/niemal/frontendmentor_8/)
+- [Live Site URL](https://niemal.github.io/frontendmentor_8/)
 
 ## My process
 
