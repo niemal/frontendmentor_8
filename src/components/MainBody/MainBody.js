@@ -4,6 +4,7 @@ import { isMobile } from "react-device-detect";
 import MobileNavigation from "../MobileNavigation";
 import { hoverSupported } from "../hoverSupported";
 import { QUERIES } from "../constants";
+import ClickableWrapper from "../ClickableWrapper";
 
 const Wrapper = styled.main`
   min-height: 100vh;
@@ -138,6 +139,11 @@ const NavEntry = styled.a`
   padding: 10px;
   border-radius: 8px;
 
+  &:focus {
+    outline: 3px solid var(--color-white);
+    outline-offset: 3px;
+  }
+
   ${hoverSupported(css`
     &:hover {
       background-color: var(--color-dark-gray);
@@ -269,6 +275,21 @@ const ShopNowWrapper = styled.a`
   display: flex;
   align-items: center;
   gap: 16px;
+  width: max-content;
+
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+
+  &:focus {
+    outline: 3px solid var(--color-dark-gray);
+    outline-offset: 6px;
+  }
+
+  ${hoverSupported(css`
+    &:hover:focus {
+      outline-offset: 16px;
+    }
+  `)}
 
   @media ${QUERIES.tabletAndSmaller} {
     margin-top: -68px;
@@ -334,12 +355,17 @@ const SlideWrapper = styled.div`
   }
 `;
 
-const SlideEntry = styled.span`
+const SlideEntry = styled.button`
   padding: 36px;
   display: grid;
   place-content: center;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+
+  &:focus {
+    outline: 3px solid var(--color-white);
+    outline-offset: -8px;
+  }
 
   ${hoverSupported(css`
     &:hover {
@@ -536,11 +562,19 @@ function MainBody() {
             <LogoContainer>
               <Logo src={"/frontendmentor_8/logo.svg"} alt={"logo image"} />
             </LogoContainer>
-            <ActualNav>
-              <NavEntry href={"/"}>home</NavEntry>
-              <NavEntry href={"/"}>shop</NavEntry>
-              <NavEntry href={"/"}>about</NavEntry>
-              <NavEntry href={"/"}>contact</NavEntry>
+            <ActualNav aria-label={"website menu navigation"}>
+              <ClickableWrapper href={"/"}>
+                <NavEntry>home</NavEntry>
+              </ClickableWrapper>
+              <ClickableWrapper href={"/"}>
+                <NavEntry>shop</NavEntry>
+              </ClickableWrapper>
+              <ClickableWrapper href={"/"}>
+                <NavEntry>about</NavEntry>
+              </ClickableWrapper>
+              <ClickableWrapper href={"/"}>
+                <NavEntry>contact</NavEntry>
+              </ClickableWrapper>
             </ActualNav>
           </NavWrapper>
         </NavContainer>
@@ -573,18 +607,21 @@ function MainBody() {
                 ""
               )}
             </TopSideDescContainer>
-            <ShopNowWrapper href={"/"}>
-              <ShopNowText>SHOP NOW</ShopNowText>
-              <ShowNowImageContainer>
-                <ShowNowImage
-                  src={"/frontendmentor_8/icon-arrow.svg"}
-                  alt={"decoration shopw now image"}
-                />
-              </ShowNowImageContainer>
-            </ShopNowWrapper>
+
+            <ClickableWrapper href={"/"} aria-label={"shop now link"}>
+              <ShopNowWrapper>
+                <ShopNowText>SHOP NOW</ShopNowText>
+                <ShowNowImageContainer>
+                  <ShowNowImage
+                    src={"/frontendmentor_8/icon-arrow.svg"}
+                    alt={"decoration shopw now image"}
+                  />
+                </ShowNowImageContainer>
+              </ShopNowWrapper>
+            </ClickableWrapper>
           </TopSideWrapper>
           <SlideWrapper>
-            <SlideEntry
+            <ClickableWrapper
               onClick={() => {
                 setTrigger(false);
                 setPrevTab(tab);
@@ -595,12 +632,15 @@ function MainBody() {
                 }
               }}
             >
-              <ArrowImageLeft
-                src={"/frontendmentor_8/icon-angle-left.svg"}
-                alt={"slide arrow left"}
-              />
-            </SlideEntry>
-            <SlideEntry
+              <SlideEntry>
+                <ArrowImageLeft
+                  src={"/frontendmentor_8/icon-angle-left.svg"}
+                  alt={"slide arrow left button"}
+                />
+              </SlideEntry>
+            </ClickableWrapper>
+
+            <ClickableWrapper
               onClick={() => {
                 setTrigger(false);
                 setPrevTab(tab);
@@ -611,11 +651,13 @@ function MainBody() {
                 }
               }}
             >
-              <ArrowImageRight
-                src={"/frontendmentor_8/icon-angle-right.svg"}
-                alt={"slide arrow right"}
-              />
-            </SlideEntry>
+              <SlideEntry>
+                <ArrowImageRight
+                  src={"/frontendmentor_8/icon-angle-right.svg"}
+                  alt={"slide arrow right button"}
+                />
+              </SlideEntry>
+            </ClickableWrapper>
           </SlideWrapper>
         </TopSideContainer>
       </TopRow>
